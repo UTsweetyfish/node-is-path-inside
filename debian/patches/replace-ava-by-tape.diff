@@ -1,0 +1,31 @@
+Description: replace ava by tape
+Author: Xavier Guimard <yadd@debian.org>
+Forwarded: not-needed
+Last-Update: 2021-10-12
+
+--- a/test.js
++++ b/test.js
+@@ -1,6 +1,6 @@
+-import path from 'path';
+-import test from 'ava';
+-import isPathInside from '.';
++const path = require('path');
++const test = require('tape');
++const isPathInside = require('.');
+ 
+ test('main', t => {
+ 	t.true(isPathInside('a', '/'));
+@@ -65,6 +65,7 @@
+ 	t.false(isPathInside('/a/bc/d', '/a/b'));
+ 	t.false(isPathInside('a/../b', 'a'));
+ 	t.false(isPathInside('a/../b', 'b'));
++	t.end();
+ });
+ 
+ test('win32', t => {
+@@ -144,4 +145,5 @@
+ 	path.relative = relative;
+ 	path.resolve = resolve;
+ 	Object.defineProperty(path, 'sep', {value: sep});
++	t.end();
+ });
